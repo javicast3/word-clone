@@ -1,32 +1,16 @@
 import React, { useState } from 'react';
 import Guesses from '../Guesses/Guesses';
+import { range } from '../../utils';
 
-function Guess() {
-  const [guess, setGuess] = useState('');
-  const [previous, setPrevious] = useState([]);
-
-  function submitHandler(event) {
-    event.preventDefault();
-    const newGuess = {
-      guess,
-      id: Math.random(),
-    };
-    const newPrevious = [...previous, newGuess];
-    setPrevious(newPrevious);
-    console.log({ previous });
-    setGuess('');
-  }
+function Guess({ guess = '' }) {
+  console.log({ guess });
+  const val = guess?.split('');
   return (
-    <form className="guess-input-wrapper" onSubmit={submitHandler}>
-      <Guesses previous={previous} />
-      <label htmlFor="guess-input">Enter guess:</label>
-      <input
-        id="guess-input"
-        type="text"
-        value={guess}
-        onChange={(event) => setGuess(event.target.value)}
-      />
-    </form>
+    <p className="guess">
+      {range(5).map((num) => (
+        <span className="cell">{val[num]}</span>
+      ))}
+    </p>
   );
 }
 export default Guess;
